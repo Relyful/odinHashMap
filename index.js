@@ -22,6 +22,7 @@ class HashMap {
     let bucket = this.map[keyHash];
     if (bucket === null) {
       this.map[keyHash] = new node(value);
+      this.currentLoad += 1;
     } else if (bucket instanceof node) {      
       while (bucket.nextNode !== null) {
         if (bucket.value === value) {
@@ -33,6 +34,7 @@ class HashMap {
         return;
       }
       bucket.nextNode = new node(value);
+      this.currentLoad += 1;
     }
   }
 }
@@ -47,4 +49,4 @@ class node {
 let test = new HashMap;
 test.set('Marko', 4);
 test.set('Marko', 5);
-console.log(test.map);
+console.log(test);
