@@ -2,7 +2,7 @@ class HashMap {
   currentCapacity = 16;
   currentLoad = 0;  
   maxLoadFactor = this.currentCapacity * 0.75;
-  map = [].fill(null, 0, 15);
+  map = new Array(16).fill(null);
 
   hash(key) {
     let hashCode = 0;
@@ -17,11 +17,34 @@ class HashMap {
   
   }
 
-  // set(key, value) {
+  set(key, value) {
+    const keyHash = this.hash(key);
+    let bucket = this.map[keyHash];
+    if (bucket === null) {
+      this.map[keyHash] = new node(value);
+    } else if (bucket instanceof node) {      
+      while (bucket.nextNode !== null) {
+        if (bucket.value === value) {
+          return
+        }
+        bucket = bucket.nextNode;
+      }
+      if (bucket.value === value) {
+        return;
+      }
+      bucket.nextNode = new node(value);
+    }
+  }
+}
 
-  // }
+class node {
+  constructor(value, nextNode = null) {
+    this.value = value;
+    this.nextNode = nextNode;
+  }  
 }
 
 let test = new HashMap;
-test.hash('Marko');
-console.log(test);
+test.set('Marko', 4);
+test.set('Marko', 5);
+console.log(test.map);
