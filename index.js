@@ -76,12 +76,25 @@ class HashMap {
 
   remove(key) {
     const keyHash = this.hash(key);
-    if (this.map[keyHash] !== null) {
-      this.map[keyHash] = null;
+    let bucket = this.map[keyHash];
+    if (this.map[keyHash] === null) {return false;}
+    if (bucket[key]) {
+      this.map[keyHash] = bucket.nextNode;
       return true;
-    } else {
-      return false;
     }
+    while (bucket.nextNode !== null && !bucket.nextNode[key]) {
+      bucket = bucket.nextNode;
+    }
+    if (bucket.nextNode[key]) {
+      if (bucket.nextNode.nextNode === null) {
+        bucket.nextNode = null;
+        return true;
+      } else {
+        bucket.nextNode = bucket.nextNode.nextNode;
+        return true;
+      }
+    }
+    return false;
   }
 }
 
@@ -96,10 +109,11 @@ let test = new HashMap;
 test.set('Marko', 4);
 test.set('Marko', 5);
 test.set('aMrko', 24);
+test.set('Marok', 89);
 test.set('Zuzana', 8);
 test.set('Denis', 2);
 test.get('Marko');
 test.has('Amrko');
-// test.remove('Rarko');
+// test.remove('aMrko');
 
 console.log(test.map);
