@@ -44,11 +44,23 @@ class HashMap {
   get(key) {
     const keyHash = this.hash(key);
     let bucket = this.map[keyHash];
-    if (bucket === null) {
+    if (this.map[keyHash] === null) {
       return null;
-    } else {
-      return bucket;
     }
+    while (!bucket[key] && bucket.nextNode !== null) {
+      bucket = bucket.nextNode;
+    }
+    if (bucket[key]) {
+      return bucket[key];
+    }
+    return null;
+
+    // let bucket = this.map[keyHash];
+    // if (bucket === null) {
+    //   return null;
+    // } else {
+    //   return bucket;
+    // }
   }
 
   has(key) {
@@ -81,7 +93,7 @@ test.set('Marko', 5);
 test.set('aMrko', 24);
 test.set('Zuzana', 8);
 test.set('Denis', 2);
-// test.get('Marko');
+test.get('Marko');
 // test.has('not found');
 // test.remove('Rarko');
 
