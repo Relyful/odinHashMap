@@ -54,13 +54,6 @@ class HashMap {
       return bucket[key];
     }
     return null;
-
-    // let bucket = this.map[keyHash];
-    // if (bucket === null) {
-    //   return null;
-    // } else {
-    //   return bucket;
-    // }
   }
 
   has(key) {
