@@ -20,22 +20,25 @@ class HashMap {
     const keyHash = this.hash(key);
     let bucket = this.map[keyHash];
     if (bucket === null) {
-      this.map[keyHash] = new node(value);
+      this.map[keyHash] = new node(key, value);
       this.currentLoad += 1;
     } else if (bucket instanceof node) {      
-      while (bucket.nextNode !== null) {
-        if (bucket.value === value) {
-          return
-        }
+      while (!bucket[key] && bucket.nextNode !== null) {        
         bucket = bucket.nextNode;
       }
-      if (bucket.value === value) {
-        return;
+      if (bucket.nextNode === null) {
+        if (bucket[key]) {
+          bucket[key] = value;
+        } else {
+          bucket.nextNode = new node(key, value);
+          return
+        }
+      } else {
+        bucket[key] = value;
+        return
       }
-      bucket.nextNode = new node(value);
-      this.currentLoad += 1;
     }
-    //Add function that grows ammount of buckets when loadfactor reaches maximum level
+    //Add function that grows ammount of buckets when currentLoad reaches maximum level
   }
 
   get(key) {
@@ -66,8 +69,8 @@ class HashMap {
 }
 
 class node {
-  constructor(value, nextNode = null) {
-    this.value = value;
+  constructor(key, value, nextNode = null) {
+    this[key] = value;
     this.nextNode = nextNode;
   }  
 }
@@ -75,7 +78,11 @@ class node {
 let test = new HashMap;
 test.set('Marko', 4);
 test.set('Marko', 5);
-test.get('Marko');
-test.has('not found');
-test.remove('Narko');
-// console.log(test.map);
+test.set('aMrko', 24);
+test.set('Zuzana', 8);
+test.set('Denis', 2);
+// test.get('Marko');
+// test.has('not found');
+// test.remove('Rarko');
+
+console.log(test.map);
