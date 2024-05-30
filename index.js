@@ -12,7 +12,6 @@ class HashMap {
       let hashValue = primeNumber * hashCode + key.charCodeAt(i);
       hashCode = hashValue % this.currentCapacity;
     }
-    console.log(hashCode);
     return hashCode;
   
   }
@@ -36,6 +35,17 @@ class HashMap {
       bucket.nextNode = new node(value);
       this.currentLoad += 1;
     }
+    //Add function that grows ammount of buckets when loadfactor reaches maximum level
+  }
+
+  get(key) {
+    const keyHash = this.hash(key);
+    let bucket = this.map[keyHash];
+    if (bucket === null) {
+      return null;
+    } else {
+      return bucket;
+    }
   }
 }
 
@@ -49,4 +59,5 @@ class node {
 let test = new HashMap;
 test.set('Marko', 4);
 test.set('Marko', 5);
-console.log(test);
+test.get('Marko');
+console.log(test.map);
