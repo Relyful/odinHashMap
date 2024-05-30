@@ -53,6 +53,16 @@ class HashMap {
     let bucket = this.map[keyHash];
     return bucket !== null ? true : false;    
   }
+
+  remove(key) {
+    const keyHash = this.hash(key);
+    if (this.map[keyHash] !== null) {
+      this.map[keyHash] = null;
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 class node {
@@ -67,4 +77,5 @@ test.set('Marko', 4);
 test.set('Marko', 5);
 test.get('Marko');
 test.has('not found');
+test.remove('Narko');
 // console.log(test.map);
