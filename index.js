@@ -47,6 +47,12 @@ class HashMap {
       return bucket;
     }
   }
+
+  has(key) {
+    const keyHash = this.hash(key);
+    let bucket = this.map[keyHash];
+    return bucket !== null ? true : false;    
+  }
 }
 
 class node {
@@ -60,4 +66,5 @@ let test = new HashMap;
 test.set('Marko', 4);
 test.set('Marko', 5);
 test.get('Marko');
-console.log(test.map);
+test.has('not found');
+// console.log(test.map);
