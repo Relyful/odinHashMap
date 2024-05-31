@@ -31,6 +31,7 @@ class HashMap {
           bucket[key] = value;
         } else {
           bucket.nextNode = new node(key, value);
+          this.currentLoad += 1;
           return
         }
       } else {
@@ -96,6 +97,20 @@ class HashMap {
     }
     return false;
   }
+
+  length() {
+    let count = 0;
+    this.map.forEach(element => {
+      if (element !== null) {
+        count += 1;
+        while (element.nextNode) {
+          count += 1;
+          element = element.nextNode;
+        }
+      }
+    });
+    return count;
+  }
 }
 
 class node {
@@ -114,6 +129,7 @@ test.set('Zuzana', 8);
 test.set('Denis', 2);
 test.get('Marko');
 test.has('Amrko');
-// test.remove('aMrko');
+test.remove('aMrko');
+test.length();
 
 console.log(test.map);
