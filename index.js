@@ -116,6 +116,44 @@ class HashMap {
     this.map = new Array(this.currentCapacity).fill(null);
     return;
   }
+
+  keys() {
+    let keyArray = [];
+    this.map.forEach(element => {
+      if (element !== null) {
+        //create array with keys, first key is always my key and second key is always nextNode
+        let keyList = Object.keys(element);
+        //push each custom key value to our key array
+        keyArray.push(keyList[0]);
+        while (element.nextNode !== null) {
+          //create and push again for each node in linked list
+          element = element.nextNode;
+          keyList = Object.keys(element);
+          keyArray.push(keyList[0]);
+        }
+      }
+    });
+    return keyArray;
+  }
+
+  values() {
+    let valueArray = [];
+    this.map.forEach(element => {
+      if (element !== null) {
+        //create array with values, first value is always my value and second value is always nextNode
+        let valueList = Object.values(element);
+        //push each custom value to our value array
+        valueArray.push(valueList[0]);
+        while (element.nextNode !== null) {
+          //create and push again for each node in linked list
+          element = element.nextNode;
+          valueList = Object.values(element);
+          valueArray.push(valueList[0]);
+        }
+      }
+    });
+    return valueArray;
+  }
 }
 
 class node {
@@ -136,6 +174,8 @@ test.get('Marko');
 test.has('Amrko');
 test.remove('aMrko');
 test.length();
-test.clear();
+// test.clear();
+test.keys();
+test.values();
 
 console.log(test.map);
