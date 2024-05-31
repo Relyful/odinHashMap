@@ -154,6 +154,31 @@ class HashMap {
     });
     return valueArray;
   }
+
+  entries() {
+    let keyValuePairs = [];
+    this.map.forEach(element => {
+      if (element !== null) {
+        let littleArray = [];
+        for (const [key, value] of Object.entries(element)) {
+          let smolArray = [key, value];
+          littleArray.push(smolArray);
+        }
+        keyValuePairs.push(littleArray[0]);
+
+        while (element.nextNode !== null) {
+          element = element.nextNode;
+          littleArray = [];
+          for (const [key, value] of Object.entries(element)) {
+            let smolArray = [key, value];
+            littleArray.push(smolArray);
+          }
+          keyValuePairs.push(littleArray[0]);
+        }
+      }
+    });
+    return keyValuePairs;
+  }
 }
 
 class node {
@@ -177,5 +202,6 @@ test.length();
 // test.clear();
 test.keys();
 test.values();
+test.entries();
 
-console.log(test.map);
+console.log(test);
