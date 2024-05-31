@@ -183,7 +183,6 @@ class HashMap {
 
   grow(currentLength) {
     if (currentLength < this.maxLoadFactor) {return};
-    console.log(this.map);
     const mapCopy = this.entries();
     this.currentCapacity = this.currentCapacity * 2;
     this.currentLoad = 0;
