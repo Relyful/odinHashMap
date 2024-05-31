@@ -2,7 +2,7 @@ class HashMap {
   currentCapacity = 16;
   currentLoad = 0;  
   maxLoadFactor = this.currentCapacity * 0.75;
-  map = new Array(16).fill(null);
+  map = new Array(this.currentCapacity).fill(null);
 
   hash(key) {
     let hashCode = 0;
@@ -111,6 +111,11 @@ class HashMap {
     });
     return count;
   }
+
+  clear() {
+    this.map = new Array(this.currentCapacity).fill(null);
+    return;
+  }
 }
 
 class node {
@@ -131,5 +136,6 @@ test.get('Marko');
 test.has('Amrko');
 test.remove('aMrko');
 test.length();
+test.clear();
 
 console.log(test.map);
