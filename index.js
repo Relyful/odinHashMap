@@ -40,6 +40,7 @@ class HashMap {
       }
     }
     //Add function that grows ammount of buckets when currentLoad reaches maximum level
+    this.grow(this.length());
   }
 
   get(key) {
@@ -179,6 +180,22 @@ class HashMap {
     });
     return keyValuePairs;
   }
+
+  grow(currentLength) {
+    if (currentLength < this.maxLoadFactor) {return};
+    console.log(this.map);
+    const mapCopy = this.entries();
+    this.currentCapacity = this.currentCapacity * 2;
+    this.currentLoad = 0;
+    this.maxLoadFactor = this.currentCapacity * 0.75;
+    this.map = new Array(this.currentCapacity).fill(null);
+    console.log(this.currentCapacity / 2 + ' growin to: ' + this.currentCapacity);
+
+    mapCopy.forEach(element => {
+      this.set(element[0], element[1]);
+    });
+    return;
+  }
 }
 
 class node {
@@ -195,6 +212,15 @@ test.set('aMrko', 24);
 test.set('Marok', 89);
 test.set('Zuzana', 8);
 test.set('Denis', 2);
+test.set('fdsfs', 0);
+test.set('gfsd', 1);
+test.set('werw', 2);
+test.set('cvcx', 3);
+test.set('hgh', 4);
+test.set('nbm', 5);
+test.set('werq', 6);
+test.set('h5rty', 7)
+test.set('qweqcb', 8);
 test.get('Marko');
 test.has('Amrko');
 test.remove('aMrko');
